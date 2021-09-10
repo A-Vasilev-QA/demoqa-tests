@@ -19,12 +19,4 @@ public class BaseTest {
     public void tearDown() {
         closeWindow();
     }
-
-    public void sleep(long timeout) {
-        try {
-            Thread.sleep(5000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
 }
