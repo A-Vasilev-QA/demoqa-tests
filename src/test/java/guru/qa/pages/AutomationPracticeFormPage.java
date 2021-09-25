@@ -107,7 +107,7 @@ public class AutomationPracticeFormPage {
         String StateAndCity;
         stateInput.click();
         StateAndCity = $(String.format(stateLocator, stateNumber)).text() + " ";
-        $(String.format(stateLocator, stateNumber)).click();
+        $(String.format(stateLocator, stateNumber)).scrollIntoView(false).click();
         cityInput.click();
         StateAndCity += $(String.format(cityLocator, cityNumber)).text();
         $(String.format(cityLocator, cityNumber)).click();
