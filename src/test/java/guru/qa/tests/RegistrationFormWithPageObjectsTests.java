@@ -5,11 +5,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Date;
 
-import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.sleep;
 import static guru.qa.pages.AutomationPracticeFormPage.*;
-import static guru.qa.pages.AutomationPracticeFormPage.selectGender;
 
 public class RegistrationFormWithPageObjectsTests extends BaseTest {
 
@@ -20,12 +17,15 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
             genderValue,
             userNumber = faker.phoneNumber().subscriberNumber(10),
             fullDate,
-            subjectLetter = faker.regexify("[a-eg-jl-v]"),
+            subjectLetter = faker.regexify("[a-eg-hl-v]"),
             subjectName,
             hobbies,
             fileName = "1.jpg",
-            currentAddress = faker.address().fullAddress();
-    int genderNumber = faker.number().numberBetween(1, 3);
+            currentAddress = faker.address().fullAddress(),
+            StateAndCity;
+    int genderNumber = faker.number().numberBetween(1, 3),
+        stateNumber = faker.number().numberBetween(0,1),
+        cityNumber = faker.number().numberBetween(0,1);
     boolean isFirstHobby = faker.bool().bool(),
             isSecondHobby = faker.bool().bool(),
             isThirdHobby = faker.bool().bool();
@@ -42,14 +42,14 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
         typeUserNumber(userNumber);
         fullDate = selectDate(birthDate);
         subjectName = inputSubject(subjectLetter);
-        //$("label[for=\"hobbies-checkbox-1\"]").click();
         hobbies = selectHobbies(isFirstHobby, isSecondHobby, isThirdHobby);
         uploadPicture(fileName);
         typeCurrentAddress(currentAddress);
-        $("#state").click();
-        $("#stateCity-wrapper").$(byText("NCR")).click();
-        $("#city").click();
-        $("#stateCity-wrapper").$(byText("Delhi")).click();
+//        $("#state").click();
+//        $("#stateCity-wrapper").$(byText("NCR")).click();
+//        $("#city").click();
+//        $("#stateCity-wrapper").$(byText("Delhi")).click();
+        StateAndCity = selectStateAndCity(stateNumber, cityNumber);
         clickSubmit();
 
         checkResultsValue("Student Name", firstName + " " + lastName);
@@ -62,8 +62,8 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
         checkResultsValue("Hobbies", hobbies);
         checkResultsValue("Picture", fileName);
         checkResultsValue("Address", currentAddress);
-        $(".table-responsive").$(byText("State and City")).sibling(0).shouldHave(text("NCR Delhi"));
-
-        sleep(3000);
+        //$(".table-responsive").$(byText("State and City")).sibling(0).shouldHave(text("NCR Delhi"));
+        checkResultsValue("State and City", StateAndCity);
+        //sleep(3000);
     }
 }

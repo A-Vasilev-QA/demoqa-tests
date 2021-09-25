@@ -13,7 +13,9 @@ public class AutomationPracticeFormPage {
     private static final String FORM_TITLE = "Student Registration Form",
                                 TABLE_TITLE = "Thanks for submitting the form";
     private static String genderLocator = ("label[for=\"gender-radio-%d\"]"),
-                          hobbyLocator = ("label[for=\"hobbies-checkbox-%d\"]");
+                          hobbyLocator = ("label[for=\"hobbies-checkbox-%d\"]"),
+                          stateLocator = "#react-select-3-option-%d",
+                          cityLocator = "#react-select-4-option-%d";
     private static SelenideElement
             formTitle = $(".practice-form-wrapper"),
             firstNameInput = $("#firstName"),
@@ -24,10 +26,11 @@ public class AutomationPracticeFormPage {
             subjectTab = $("#react-select-2-option-0"),
             uploadFileInput = $("#uploadPicture"),
             currentAddressInput = $("#currentAddress"),
+            stateInput = $("#state"),
+            cityInput = $("#city"),
             submitButton = $("#submit"),
             tableHeader = $("#example-modal-sizes-title-lg");
     private static CalendarComponent calendar = new CalendarComponent();
-
 
     public static void openPage() {
         open("/automation-practice-form");
@@ -76,15 +79,18 @@ public class AutomationPracticeFormPage {
         String hobbies = "";
         if (firstHobby) {
             $(String.format(hobbyLocator, 1)).click();
-            hobbies += " " +  $(String.format(hobbyLocator, 1)).text();
+            hobbies += $(String.format(hobbyLocator, 1)).text() + ", ";
         }
         if (secondHobby) {
             $(String.format(hobbyLocator, 2)).click();
-            hobbies += " " +  $(String.format(hobbyLocator, 2)).text();
+            hobbies += $(String.format(hobbyLocator, 2)).text() + ", ";
         }
         if (thirdHobby) {
             $(String.format(hobbyLocator, 3)).click();
             hobbies += " " +  $(String.format(hobbyLocator, 3)).text();
+        }
+        if (hobbies.endsWith(", ")) {
+            hobbies = hobbies.substring(hobbies.length()-2);
         }
         return hobbies;
     }
@@ -97,6 +103,17 @@ public class AutomationPracticeFormPage {
         currentAddressInput.shouldBe(enabled).setValue(value);
     }
 
+    public static String selectStateAndCity(int stateNumber, int cityNumber) {
+        String StateAndCity;
+        stateInput.click();
+        StateAndCity = $(String.format(stateLocator, stateNumber)).text() + " ";
+        $(String.format(stateLocator, stateNumber)).click();
+        cityInput.click();
+        StateAndCity += $(String.format(cityLocator, cityNumber)).text();
+        $(String.format(cityLocator, cityNumber)).click();
+        return StateAndCity;
+    }
+
     public static void clickSubmit() {
         submitButton.click();
         tableHeader.shouldBe(visible).shouldHave(text(TABLE_TITLE));
@@ -106,7 +123,7 @@ public class AutomationPracticeFormPage {
         if (value.equals("")) {
             $(".table-responsive").$(byText(key)).sibling(0).shouldBe(empty);
         } else {
-        $(".table-responsive").$(byText(key)).sibling(0).shouldHave(text(value));
+            $(".table-responsive").$(byText(key)).sibling(0).shouldHave(text(value));
         }
     }
 
