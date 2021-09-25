@@ -90,7 +90,7 @@ public class AutomationPracticeFormPage {
             hobbies += " " +  $(String.format(hobbyLocator, 3)).text();
         }
         if (hobbies.endsWith(", ")) {
-            hobbies = hobbies.substring(hobbies.length()-2);
+            hobbies = hobbies.substring(0, hobbies.length()-2);
         }
         return hobbies;
     }
@@ -123,7 +123,7 @@ public class AutomationPracticeFormPage {
         if (value.equals("")) {
             $(".table-responsive").$(byText(key)).sibling(0).shouldBe(empty);
         } else {
-            $(".table-responsive").$(byText(key)).sibling(0).shouldHave(text(value));
+            $(".table-responsive").$(byText(key)).sibling(0).shouldHave(exactText(value));
         }
     }
 

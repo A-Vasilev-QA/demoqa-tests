@@ -17,14 +17,14 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
             genderValue,
             userNumber = faker.phoneNumber().subscriberNumber(10),
             fullDate,
-            subjectLetter = faker.regexify("[a-eg-hl-v]"),
+            subjectLetter = faker.regexify("[a-eg-hl-pr-v]"),
             subjectName,
             hobbies,
             fileName = "1.jpg",
             currentAddress = faker.address().fullAddress(),
             StateAndCity;
     int genderNumber = faker.number().numberBetween(1, 3),
-        stateNumber = faker.number().numberBetween(0,1),
+        stateNumber = faker.number().numberBetween(0,2),
         cityNumber = faker.number().numberBetween(0,1);
     boolean isFirstHobby = faker.bool().bool(),
             isSecondHobby = faker.bool().bool(),
