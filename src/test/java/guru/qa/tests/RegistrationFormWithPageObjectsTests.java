@@ -45,10 +45,6 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
         hobbies = selectHobbies(isFirstHobby, isSecondHobby, isThirdHobby);
         uploadPicture(fileName);
         typeCurrentAddress(currentAddress);
-//        $("#state").click();
-//        $("#stateCity-wrapper").$(byText("NCR")).click();
-//        $("#city").click();
-//        $("#stateCity-wrapper").$(byText("Delhi")).click();
         StateAndCity = selectStateAndCity(stateNumber, cityNumber);
         clickSubmit();
 
@@ -58,12 +54,9 @@ public class RegistrationFormWithPageObjectsTests extends BaseTest {
         checkResultsValue("Mobile", userNumber);
         checkResultsValue("Date of Birth", fullDate);
         checkResultsValue("Subjects", subjectName);
-        //$(".table-responsive").$(byText("Hobbies")).sibling(0).shouldHave(text("Sports"));
         checkResultsValue("Hobbies", hobbies);
         checkResultsValue("Picture", fileName);
         checkResultsValue("Address", currentAddress);
-        //$(".table-responsive").$(byText("State and City")).sibling(0).shouldHave(text("NCR Delhi"));
         checkResultsValue("State and City", StateAndCity);
-        //sleep(3000);
     }
 }
